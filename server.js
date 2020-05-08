@@ -28,6 +28,7 @@ app.use(
     keys: ["key1"],
   })
 );
+app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
