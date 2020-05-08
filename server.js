@@ -10,6 +10,7 @@ const app        = express();
 const morgan     = require('morgan');
 const cookieSession = require("cookie-session");
 const methodOverride = require("method-override");
+const cors = require("cors");
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -21,6 +22,7 @@ db.connect();
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
