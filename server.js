@@ -8,6 +8,7 @@ const express    = require("express");
 const bodyParser = require("body-parser");
 const app        = express();
 const morgan     = require('morgan');
+const cookieSession = require("cookie-session");
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -21,6 +22,12 @@ db.connect();
 app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1"],
+  })
+);
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
