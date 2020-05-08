@@ -5,24 +5,18 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
 
 module.exports = (db) => {
+  const dbHelper = require("../helpers/dbHelper")(db);
   router.get("/", (req, res) => {
-    // db.query(`SELECT * FROM users;`)
-    //   .then(data => {
-    //     const users = data.rows;
-    //     res.json({ users });
-    //   })
-    //   .catch(err => {
-    //     res
-    //       .status(500)
-    //       .json({ error: err.message });
-    //   });
-    res.json({user: "Aaron"});
+    // Example of using dbHelper for db queries
+    dbHelper
+      .getUserWithEmail("a@a.com")
+      .then((user) => res.json(user))
+      .catch((e) => res.json(e));
   });
-
 
   return router;
 };
