@@ -46,15 +46,15 @@ app.use(
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
-// Separated Routes for each Resource
+// Separated routes for each resource
 // Note: Feel free to replace the example routes below with your own
 const rootRoutes = require("./routes/rootRoutes");
-const usersRoutes = require("./routes/userRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/", rootRoutes(db));
-app.use("/api/users", usersRoutes(db));
+app.use("/api", rootRoutes(db));
+app.use("/api/user", userRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Warning: avoid creating more routes in this file!
