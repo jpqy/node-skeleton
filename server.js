@@ -22,9 +22,21 @@ db.connect();
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
-app.use(cors());
-
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({ credentials: true, preflightContinue: true }));
+app.use(function (req, res, next) {
+  res.header(
+    // Allow React-app to send requests to this server
+    "Access-Control-Allow-Origin",
+    process.env.CLIENT || "http://localhost:3000" 
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
+app.use(bodyParser.json());
 app.use(
   cookieSession({
     name: "session",
